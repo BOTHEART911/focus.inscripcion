@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Formulario de Contacto</title>
+  <title>Formulario de Pre-Inscripción</title>
   <style>
     body {
       background-color: #000;
@@ -14,34 +14,58 @@
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
     }
+
     .container {
       max-width: 600px;
-      margin: 0 auto;
+      width: 100%;
       background: rgba(0, 0, 0, 0.7); /* Fondo transparente */
       padding: 20px;
       border-radius: 10px;
       box-shadow: 0 0 10px 2px #00f;
-    }
-    .form-title {
-      font-size: 24px;
-      font-weight: bold;
-      animation: rotateTitle 14s linear infinite;
       text-align: center;
+    }
+
+    .form-title {
+      font-size: 36px;
+      font-weight: bold;
+      color: #fff;
+      text-shadow: 3px 3px 3px #c00;
+      background: linear-gradient(90deg, rgba(255,255,255,0) 0%, #fff 50%, rgba(255,255,255,0) 100%);
+      background-size: 200% 100%;
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      animation: rotate 20s infinite linear, text-fill 3s ease-in-out forwards;
       margin-bottom: 20px;
     }
-    @keyframes rotateTitle {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(720deg); }
+
+    @keyframes rotate {
+      0% { transform: rotateY(0deg); }
+      100% { transform: rotateY(360deg); }
     }
+
+    @keyframes text-fill {
+      0% { background-position: 200% 0; }
+      100% { background-position: 0 0; }
+    }
+
     .form-group {
       margin-bottom: 20px;
     }
+
     .form-group label {
       display: block;
       font-weight: bold;
       margin-bottom: 5px;
     }
+
     .form-group input[type="text"],
     .form-group input[type="number"],
     .form-group select,
@@ -54,6 +78,7 @@
       border: 1px solid #ccc;
       border-radius: 4px;
     }
+
     .form-group input[type="submit"] {
       background-color: #00f;
       color: #fff;
@@ -62,14 +87,17 @@
       border: none;
       cursor: pointer;
     }
+
     .form-group input[type="submit"]:hover {
       background-color: #005;
     }
+
     .error-message {
       color: red;
       font-size: 14px;
       margin-top: 5px;
     }
+
     iframe {
       margin-top: 20px;
       width: 100%;
@@ -80,15 +108,15 @@
 </head>
 <body>
   <div class="container">
-    <div class="form-title">Formulario de Contacto</div>
+    <div class="form-title">Formulario de Pre-Inscrpción</div>
 
     <!-- Video preconfigurado -->
     <!-- Modifica la URL del video aquí -->
-    <iframe id="videoPreview" allowfullscreen src="https://www.youtube.com/embed/VIDEO_ID"></iframe>
+    <iframe id="videoPreview" allowfullscreen src="https://youtu.be/JkqlkGLDKeQ?si=EvHfcvemFSy72w4u"></iframe>
 
     <!-- Descripción del video -->
     <!-- Modifica la descripción del video aquí -->
-    <p>Descripción del video: Este es un video sobre ejercicios de Crossfit y técnicas de entrenamiento.</p>
+    <p>Se FOCUS</p>
 
     <!-- Inputs del usuario -->
     <div class="form-group">

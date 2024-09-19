@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Formulario de Pre-Inscripción</title>
+  <title>Formulario de Contacto</title>
   <style>
     body {
       background-color: #000;
@@ -14,58 +14,35 @@
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-      overflow: hidden;
+      overflow-y: auto; /* Permite desplazamiento vertical */
     }
-
     .container {
       max-width: 600px;
-      width: 100%;
+      margin: 0 auto;
       background: rgba(0, 0, 0, 0.7); /* Fondo transparente */
       padding: 20px;
       border-radius: 10px;
       box-shadow: 0 0 10px 2px #00f;
-      text-align: center;
     }
-
     .form-title {
-      font-size: 36px;
+      font-size: 24px;
       font-weight: bold;
-      color: #fff;
-      text-shadow: 3px 3px 3px #c00;
-      background: linear-gradient(90deg, rgba(255,255,255,0) 0%, #fff 50%, rgba(255,255,255,0) 100%);
-      background-size: 200% 100%;
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
-      animation: rotate 20s infinite linear, text-fill 3s ease-in-out forwards;
+      animation: rotateTitle 14s linear infinite;
+      text-align: center;
       margin-bottom: 20px;
     }
-
-    @keyframes rotate {
-      0% { transform: rotateY(0deg); }
-      100% { transform: rotateY(360deg); }
+    @keyframes rotateTitle {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(720deg); }
     }
-
-    @keyframes text-fill {
-      0% { background-position: 200% 0; }
-      100% { background-position: 0 0; }
-    }
-
     .form-group {
       margin-bottom: 20px;
     }
-
     .form-group label {
       display: block;
       font-weight: bold;
       margin-bottom: 5px;
     }
-
     .form-group input[type="text"],
     .form-group input[type="number"],
     .form-group select,
@@ -78,7 +55,6 @@
       border: 1px solid #ccc;
       border-radius: 4px;
     }
-
     .form-group input[type="submit"] {
       background-color: #00f;
       color: #fff;
@@ -87,44 +63,54 @@
       border: none;
       cursor: pointer;
     }
-
     .form-group input[type="submit"]:hover {
       background-color: #005;
     }
-
     .error-message {
       color: red;
       font-size: 14px;
       margin-top: 5px;
     }
-
     iframe {
       margin-top: 20px;
       width: 100%;
       height: 315px;
       border: none;
     }
+    .text {
+      width: 100%;
+      font-size: 36px;
+      font-weight: bold;
+      color: #fff;
+      text-shadow: 3px 3px 3px #c00;
+      animation: rotate 20s infinite linear;
+    }
+    .animation {
+      animation: rotate 5s infinite linear, stay 10s infinite;
+    }
+    @keyframes rotate {
+      0% { transform: rotateY(0deg); }
+      100% { transform: rotateY(360deg); }
+    }
+    @keyframes stay {
+      0%, 25% { transform: rotateY(0deg); }
+      50%, 75% { transform: rotateY(0deg); }
+      100% { transform: rotateY(360deg); }
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="form-title">Formulario de Pre-Inscrpción</div>
+    <div class="form-title">Formulario de Contacto</div>
 
-    <!-- Video preconfigurado -->
-    <!-- Modifica la URL del video aquí -->
-    <iframe id="videoPreview" allowfullscreen src="https://youtu.be/JkqlkGLDKeQ?si=EvHfcvemFSy72w4u"></iframe>
-
-    <!-- Descripción del video -->
-    <!-- Modifica la descripción del video aquí -->
-    <p>Se FOCUS</p>
+    <!-- Previsualización del video -->
+    <iframe id="videoPreview" src="" allowfullscreen></iframe>
 
     <!-- Inputs del usuario -->
     <div class="form-group">
       <label for="nombre">Nombre:</label>
       <input type="text" id="nombre" name="nombre" placeholder="Escribe tu nombre" required>
     </div>
-
-    <!-- Modifica la descripción de esta pregunta aquí -->
     <div class="form-group">
       <label for="tipoDocumento">Tipo de Documento:</label>
       <select id="tipoDocumento" name="tipoDocumento" required>
@@ -134,20 +120,14 @@
         <option value="Pasaporte">Pasaporte</option>
       </select>
     </div>
-
-    <!-- Modifica la descripción de esta pregunta aquí -->
     <div class="form-group">
       <label for="numDocumento">N° de Documento:</label>
-      <input type="number" id="numDocumento" name="numDocumento" placeholder="Escribe tu número de documento" min="100000" max="9999999999" required>
+      <input type="number" id="numDocumento" name="numDocumento" placeholder="Escribe tu número de documento" min="100000" max="9999999999" maxlength="10" required>
     </div>
-
-    <!-- Modifica la descripción de esta pregunta aquí -->
     <div class="form-group">
       <label for="whatsapp">Whatsapp:</label>
-      <input type="tel" id="whatsapp" name="whatsapp" placeholder="Escribe tu número de WhatsApp" required>
+      <input type="tel" id="whatsapp" name="whatsapp" placeholder="Escribe tu número de WhatsApp" maxlength="10" required>
     </div>
-
-    <!-- Modifica la descripción de esta pregunta aquí -->
     <div class="form-group">
       <label for="horaContacto">Te contactamos:</label>
       <input type="time" id="horaContacto" name="horaContacto">
@@ -163,70 +143,92 @@
   </div>
 
   <script>
-  function validarFormulario() {
-    var nombre = document.getElementById('nombre').value;
-    var tipoDocumento = document.getElementById('tipoDocumento').value;
-    var numDocumento = document.getElementById('numDocumento').value;
-    var whatsapp = document.getElementById('whatsapp').value;
+    // URL del video a previsualizar
+    var videoUrl = 'https://www.youtube.com/shorts/g8V6tggQarQ'; // Reemplaza con tu URL de video (video o short)
 
-    var errores = [];
+    // Previsualización de video al cargar la página
+    window.onload = function() {
+      var iframe = document.getElementById('videoPreview');
 
-    if (!nombre) {
-      errores.push("Nombre es obligatorio");
-    }
-    if (!tipoDocumento) {
-      errores.push("Tipo de Documento es obligatorio");
-    }
-    if (!numDocumento) {
-      errores.push("N° de Documento es obligatorio");
-    } else if (isNaN(numDocumento) || numDocumento.length < 6 || numDocumento.length > 10) {
-      errores.push("N° de Documento debe tener entre 6 y 10 dígitos numéricos");
-    }
-    if (!whatsapp) {
-      errores.push("Whatsapp es obligatorio");
-    } else if (isNaN(whatsapp) || whatsapp.length !== 10) {
-      errores.push("Whatsapp debe tener 10 dígitos numéricos");
-    }
+      // Validar si el URL es de YouTube o Cloudinary
+      if (videoUrl.includes('youtube.com') || videoUrl.includes('youtu.be')) {
+        // Convertir URL a formato embed si es de YouTube
+        var videoId = videoUrl.split('v=')[1] || videoUrl.split('/')[3];
+        if (videoUrl.includes('shorts')) {
+          iframe.src = 'https://www.youtube.com/embed/' + videoId.split('&')[0] + '?rel=0&autoplay=1';
+        } else {
+          iframe.src = 'https://www.youtube.com/embed/' + videoId.split('&')[0];
+        }
+      } else if (videoUrl.includes('cloudinary.com')) {
+        // Usar URL tal cual si es de Cloudinary
+        iframe.src = videoUrl;
+      } else {
+        iframe.src = '';  // Si no es un enlace válido, se vacía el iframe
+      }
+    };
 
-    if (errores.length > 0) {
-      var mensajeError = errores.join("<br>");
-      document.querySelector('.error-message').innerHTML = mensajeError;
-    } else {
-      enviarDatos();
-    }
-  }
+    function validarFormulario() {
+      var nombre = document.getElementById('nombre').value;
+      var tipoDocumento = document.getElementById('tipoDocumento').value;
+      var numDocumento = document.getElementById('numDocumento').value;
+      var whatsapp = document.getElementById('whatsapp').value;
 
-  function enviarDatos() {
-    // Obtener los datos del formulario
-    var nombre = document.getElementById('nombre').value;
-    var tipoDocumento = document.getElementById('tipoDocumento').value;
-    var numDocumento = document.getElementById('numDocumento').value;
-    var whatsapp = document.getElementById('whatsapp').value;
-    var horaContacto = document.getElementById('horaContacto').value;
+      var errores = [];
 
-    var mensaje = "Título de Formulario\n";
-    mensaje += "Nombre: " + nombre + "\n";
-    mensaje += "Tipo de Documento: " + tipoDocumento + "\n";
-    mensaje += "N° de teléfono: " + whatsapp + "\n";
-    if (horaContacto) {
-      mensaje += "Te Contactamos: " + horaContacto + "\n";
-    }
+      if (!nombre) {
+        errores.push("Nombre es obligatorio");
+      }
+      if (!tipoDocumento) {
+        errores.push("Tipo de Documento es obligatorio");
+      }
+      if (!numDocumento) {
+        errores.push("N° de Documento es obligatorio");
+      } else if (isNaN(numDocumento) || numDocumento.length < 6 || numDocumento.length > 10) {
+        errores.push("N° de Documento debe tener entre 6 y 10 dígitos numéricos");
+      }
+      if (!whatsapp) {
+        errores.push("Whatsapp es obligatorio");
+      } else if (isNaN(whatsapp) || whatsapp.length !== 10) {
+        errores.push("Whatsapp debe tener 10 dígitos numéricos");
+      }
 
-    // Detectar si el usuario está en móvil o en computadora
-    var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    var whatsappUrl = '';
-
-    if (isMobile) {
-      // Si es móvil, abrir la app de WhatsApp
-      whatsappUrl = 'whatsapp://send?phone=573133745646&text=' + encodeURIComponent(mensaje);
-    } else {
-      // Si es computadora, abrir WhatsApp Web
-      whatsappUrl = 'https://web.whatsapp.com/send?phone=573133745646&text=' + encodeURIComponent(mensaje);
+      if (errores.length > 0) {
+        var mensajeError = errores.join("<br>");
+        document.querySelector('.error-message').innerHTML = mensajeError;
+      } else {
+        enviarDatos();
+      }
     }
 
-    // Abrir el enlace correspondiente
-    window.open(whatsappUrl);
-  }
+    function enviarDatos() {
+      // Obtener los datos del formulario
+      var nombre = document.getElementById('nombre').value;
+      var tipoDocumento = document.getElementById('tipoDocumento').value;
+      var numDocumento = document.getElementById('numDocumento').value;
+      var whatsapp = document.getElementById('whatsapp').value;
+      var horaContacto = document.getElementById('horaContacto').value;
+
+      var mensaje = "Título de Formulario\n";
+      mensaje += "Nombre: " + nombre + "\n";
+      mensaje += "Tipo de Documento: " + tipoDocumento + "\n";
+      mensaje += "N° de teléfono: " + whatsapp + "\n";
+      if (horaContacto) {
+        mensaje += "Te Contactamos: " + horaContacto + "\n";
+      }
+
+      // Detectar si el usuario está en móvil o en computadora
+      var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+      var whatsappUrl = '';
+
+      if (isMobile) {
+        whatsappUrl = 'https://api.whatsapp.com/send?phone=+1234567890&text=' + encodeURIComponent(mensaje); // Reemplaza el número de teléfono con el adecuado
+      } else {
+        whatsappUrl = 'https://web.whatsapp.com/send?phone=+1234567890&text=' + encodeURIComponent(mensaje); // Reemplaza el número de teléfono con el adecuado
+      }
+
+      // Redirigir al usuario a WhatsApp
+      window.location.href = whatsappUrl;
+    }
   </script>
 </body>
 </html>

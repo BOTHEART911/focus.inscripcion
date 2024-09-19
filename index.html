@@ -22,7 +22,6 @@
       padding: 20px;
       border-radius: 10px;
       box-shadow: 0 0 10px 2px #00f;
-      overflow-y: auto; /* Permite el desplazamiento vertical */
     }
     .form-title {
       font-size: 24px;
@@ -72,6 +71,18 @@
       height: 315px;
       border: none;
     }
+    .copyright {
+      text-align: center;
+      margin-top: 20px;
+      color: #fff;
+    }
+    .copyright a {
+      color: #00f;
+      text-decoration: none;
+    }
+    .copyright a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
@@ -80,11 +91,11 @@
 
     <!-- Video preconfigurado -->
     <!-- Modifica la URL del video aquí -->
-    <iframe id="videoPreview" allowfullscreen></iframe>
+    <iframe id="videoPreview" allowfullscreen src="https://youtu.be/JdPkgNa9gT0?si=Dge_2wH8JT7WEE3f"></iframe>
 
     <!-- Descripción del video -->
     <!-- Modifica la descripción del video aquí -->
-    <p>Descripción del video: Este es un video sobre ejercicios de Crossfit y técnicas de entrenamiento.</p>
+    <p>Este es un video sobre ejercicios de Crossfit y técnicas de entrenamiento.</p>
 
     <!-- Inputs del usuario -->
     <div class="form-group">
@@ -106,13 +117,13 @@
     <!-- Modifica la descripción de esta pregunta aquí -->
     <div class="form-group">
       <label for="numDocumento">N° de Documento:</label>
-      <input type="number" id="numDocumento" name="numDocumento" placeholder="Escribe tu número de documento" min="100000" max="9999999999" required>
+      <input type="text" id="numDocumento" name="numDocumento" placeholder="Escribe tu número de documento" required>
     </div>
 
     <!-- Modifica la descripción de esta pregunta aquí -->
     <div class="form-group">
       <label for="whatsapp">Whatsapp:</label>
-      <input type="tel" id="whatsapp" name="whatsapp" placeholder="Escribe tu número de WhatsApp" maxlength="10" required>
+      <input type="tel" id="whatsapp" name="whatsapp" placeholder="Escribe tu número de WhatsApp" required>
     </div>
 
     <!-- Modifica la descripción de esta pregunta aquí -->
@@ -128,6 +139,11 @@
 
     <!-- Mensaje de error -->
     <div class="error-message"></div>
+
+    <!-- Copyright -->
+    <div class="copyright">
+      <p>Propiedad Intelectual de: <a href="https://wa.me/573103230712" target="_blank">Oscar Polania</a></p>
+    </div>
   </div>
 
   <script>
@@ -195,31 +211,6 @@
     // Abrir el enlace correspondiente
     window.open(whatsappUrl);
   }
-
-  // Configurar el video según la URL preconfigurada
-  function configurarVideo() {
-    var url = 'https://youtu.be/JdPkgNa9gT0?si=4-R3zaz6GXz_8A7E'; // Reemplaza 'VIDEO_ID' con el ID del video o el enlace del short
-    var iframe = document.getElementById('videoPreview');
-
-    // Validar si el URL es de YouTube o Cloudinary
-    if (url.includes('youtube.com') || url.includes('youtu.be')) {
-      // Convertir URL a formato embed si es de YouTube
-      var videoId = url.split('v=')[1] || url.split('/')[3];
-      if (url.includes('shorts')) {
-        iframe.src = 'https://www.youtube.com/embed/' + videoId.split('&')[0] + '?rel=0&autoplay=1';
-      } else {
-        iframe.src = 'https://www.youtube.com/embed/' + videoId.split('&')[0];
-      }
-    } else if (url.includes('cloudinary.com')) {
-      // Usar URL tal cual si es de Cloudinary
-      iframe.src = url;
-    } else {
-      iframe.src = '';  // Si no es un enlace válido, se vacía el iframe
-    }
-  }
-
-  // Llamar a la función para configurar el video al cargar la página
-  window.onload = configurarVideo;
   </script>
 </body>
 </html>

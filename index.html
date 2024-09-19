@@ -101,8 +101,7 @@
 
     <!-- Contenedor del video -->
     <div class="video-container">
-      <!-- Modifica la URL del video aquí -->
-      <iframe id="videoPreview" allowfullscreen src="https://youtu.be/D1UfluoodwI?si=NKXB-9kQTYJeytxU"></iframe>
+      <iframe id="videoPreview" allowfullscreen></iframe>
     </div>
 
     <!-- Descripción del video -->
@@ -122,13 +121,12 @@
         <option value="CC">CC</option>
         <option value="Pasaporte">Pasaporte</option>
       </select>
-      <small>Seleccione el tipo de documento. TI y CC permiten números, Pasaporte permite letras y números.</small>
     </div>
 
     <div class="form-group">
       <label for="numDocumento">N° de Documento:</label>
       <input type="text" id="numDocumento" name="numDocumento" placeholder="Escribe tu número de documento" required>
-      <small>Para TI y CC: máximo 10 dígitos numéricos. Para Pasaporte: máximo 10 caracteres alfanuméricos.</small>
+      <small>Máximo 10 caracteres alfanuméricos.</small>
     </div>
 
     <div class="form-group">
@@ -154,6 +152,32 @@
   </div>
 
   <script>
+  // Función para obtener el ID del video ya sea en formato estándar o short
+  function obtenerIdVideo(url) {
+    let videoId = null;
+    if (url.includes('youtu.be')) {
+      videoId = url.split('/').pop().split('?')[0];
+    } else if (url.includes('youtube.com/shorts')) {
+      videoId = url.split('/').pop().split('?')[0];
+    } else if (url.includes('youtube.com/watch')) {
+      const urlParams = new URLSearchParams(url.split('?')[1]);
+      videoId = urlParams.get('v');
+    }
+    return videoId;
+  }
+
+  // Previsualizar video basado en URL
+  function previsualizarVideo() {
+    const url = "https://youtu.be/D1UfluoodwI?si=NKXB-9kQTYJeytxU"; // Cambia la URL si lo deseas
+    const videoId = obtenerIdVideo(url);
+    if (videoId) {
+      const iframe = document.getElementById('videoPreview');
+      iframe.src = `https://www.youtube.com/embed/${videoId}`;
+    }
+  }
+
+  previsualizarVideo();
+
   function validarFormulario() {
     var nombre = document.getElementById('nombre').value;
     var tipoDocumento = document.getElementById('tipoDocumento').value;
@@ -170,8 +194,8 @@
     }
     if (!numDocumento) {
       errores.push("N° de Documento es obligatorio");
-    } else if (isNaN(numDocumento) || numDocumento.length < 6 || numDocumento.length > 10) {
-      errores.push("N° de Documento debe tener entre 6 y 10 dígitos numéricos");
+    } else if (numDocumento.length < 6 || numDocumento.length > 10) {
+      errores.push("N° de Documento debe tener entre 6 y 10 caracteres alfanuméricos");
     }
     if (!whatsapp) {
       errores.push("Whatsapp es obligatorio");
@@ -197,6 +221,7 @@
     var mensaje = "Título de Formulario\n";
     mensaje += "Nombre: " + nombre + "\n";
     mensaje += "Tipo de Documento: " + tipoDocumento + "\n";
+    mensaje += "N° de Documento: " + numDocumento + "\n";
     mensaje += "N° de teléfono: " + whatsapp + "\n";
     if (horaContacto) {
       mensaje += "Te Contactamos: " + horaContacto + "\n";

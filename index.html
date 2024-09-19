@@ -97,7 +97,7 @@
 </head>
 <body>
   <div class="container">
-    <div class="form-title">Formulario de Contacto</div>
+    <div class="form-title">Formulario de Pre-Inscripción</div>
 
     <!-- Contenedor del video -->
     <div class="video-container">
@@ -105,7 +105,7 @@
     </div>
 
     <!-- Descripción del video -->
-    <p>Descripción del video: Este es un video sobre ejercicios de Crossfit y técnicas de entrenamiento.</p>
+    <p>Estás a unos clic de pertenecer a FOCUS</p>
 
     <!-- Inputs del usuario -->
     <div class="form-group">
@@ -126,18 +126,18 @@
     <div class="form-group">
       <label for="numDocumento">N° de Documento:</label>
       <input type="text" id="numDocumento" name="numDocumento" placeholder="Escribe tu número de documento" required>
-      <small>Máximo 10 caracteres alfanuméricos.</small>
+      <small>Sin puntos ni espacios</small>
     </div>
 
     <div class="form-group">
       <label for="whatsapp">Whatsapp:</label>
       <input type="tel" id="whatsapp" name="whatsapp" placeholder="Escribe tu número de WhatsApp" required>
-      <small>Ingrese un número de WhatsApp de 10 dígitos numéricos.</small>
     </div>
 
     <div class="form-group">
       <label for="horaContacto">Te contactamos:</label>
       <input type="time" id="horaContacto" name="horaContacto">
+       <small>Opcional</small>
     </div>
 
     <div class="form-group">
@@ -147,7 +147,7 @@
     <div class="error-message"></div>
 
     <div class="copyright">
-      <p>Propiedad Intelectual de: <a href="https://wa.me/573103230712" target="_blank">Oscar Polania</a></p>
+      <p>Copyrigth © <a href="https://wa.me/573103230712" target="_blank">Oscar Polania</a></p>
     </div>
   </div>
 
@@ -168,7 +168,7 @@
 
   // Previsualizar video basado en URL
   function previsualizarVideo() {
-    const url = "https://youtu.be/D1UfluoodwI?si=NKXB-9kQTYJeytxU"; // Cambia la URL si lo deseas
+    const url = "https://youtu.be/lmDfmilZ4Xo?si=OwlNsA85xDyBxanX"; // Cambia la URL si lo deseas
     const videoId = obtenerIdVideo(url);
     if (videoId) {
       const iframe = document.getElementById('videoPreview');
@@ -218,11 +218,11 @@
     var whatsapp = document.getElementById('whatsapp').value;
     var horaContacto = document.getElementById('horaContacto').value;
 
-    var mensaje = "Título de Formulario\n";
-    mensaje += "Nombre: " + nombre + "\n";
-    mensaje += "Tipo de Documento: " + tipoDocumento + "\n";
-    mensaje += "N° de Documento: " + numDocumento + "\n";
-    mensaje += "N° de teléfono: " + whatsapp + "\n";
+    var mensaje = "*Preincripción*\n";
+    mensaje += "*Nombre:* " + nombre + "\n";
+    mensaje += "*Tipo de Documento:* " + tipoDocumento + "\n";
+    mensaje += "*N° de Documento:* " + numDocumento + "\n";
+    mensaje += *"WhatsApp:* " + whatsapp + "\n";
     if (horaContacto) {
       mensaje += "Te Contactamos: " + horaContacto + "\n";
     }

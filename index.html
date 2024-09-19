@@ -30,6 +30,8 @@
       animation: rotateTitle 14s linear infinite;
       text-align: center;
       margin-bottom: 20px;
+      color: #fff;
+      text-shadow: 3px 3px 3px #c00;
     }
     @keyframes rotateTitle {
       0% { transform: rotate(0deg); }
@@ -83,19 +85,24 @@
       font-weight: bold;
       color: #fff;
       text-shadow: 3px 3px 3px #c00;
-      animation: rotate 20s infinite linear;
-    }
-    .animation {
-      animation: rotate 5s infinite linear, stay 10s infinite;
+      background: linear-gradient(90deg, rgba(255,255,255,0) 0%, #fff 50%, rgba(255,255,255,0) 100%);
+      background-size: 200% 100%;
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      animation: rotate 20s infinite linear, text-fill 3s ease-in-out forwards;
     }
     @keyframes rotate {
       0% { transform: rotateY(0deg); }
       100% { transform: rotateY(360deg); }
     }
-    @keyframes stay {
-      0%, 25% { transform: rotateY(0deg); }
-      50%, 75% { transform: rotateY(0deg); }
-      100% { transform: rotateY(360deg); }
+    @keyframes text-fill {
+      0% {
+        background-position: 200% 0;
+      }
+      100% {
+        background-position: 0 0;
+      }
     }
   </style>
 </head>
@@ -218,13 +225,9 @@
 
       // Detectar si el usuario está en móvil o en computadora
       var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-      var whatsappUrl = '';
 
-      if (isMobile) {
-        whatsappUrl = 'https://api.whatsapp.com/send?phone=+1234567890&text=' + encodeURIComponent(mensaje); // Reemplaza el número de teléfono con el adecuado
-      } else {
-        whatsappUrl = 'https://web.whatsapp.com/send?phone=+1234567890&text=' + encodeURIComponent(mensaje); // Reemplaza el número de teléfono con el adecuado
-      }
+      // URL de WhatsApp (número de teléfono)
+      var whatsappUrl = "https://wa.me/your-number?text=" + encodeURIComponent(mensaje);
 
       // Redirigir al usuario a WhatsApp
       window.location.href = whatsappUrl;

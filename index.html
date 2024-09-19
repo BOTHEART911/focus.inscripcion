@@ -90,12 +90,10 @@
     <div class="form-title">Formulario de Contacto</div>
 
     <!-- Video preconfigurado -->
-    <!-- Modifica la URL del video aquí -->
     <iframe id="videoPreview" allowfullscreen src="https://youtu.be/JdPkgNa9gT0?si=Dge_2wH8JT7WEE3f"></iframe>
 
     <!-- Descripción del video -->
-    <!-- Modifica la descripción del video aquí -->
-    <p>Este es un video sobre ejercicios de Crossfit y técnicas de entrenamiento.</p>
+    <p>Descripción del video: Este es un video sobre ejercicios de Crossfit y técnicas de entrenamiento.</p>
 
     <!-- Inputs del usuario -->
     <div class="form-group">
@@ -103,7 +101,6 @@
       <input type="text" id="nombre" name="nombre" placeholder="Escribe tu nombre" required>
     </div>
 
-    <!-- Modifica la descripción de esta pregunta aquí -->
     <div class="form-group">
       <label for="tipoDocumento">Tipo de Documento:</label>
       <select id="tipoDocumento" name="tipoDocumento" required>
@@ -112,35 +109,32 @@
         <option value="CC">CC</option>
         <option value="Pasaporte">Pasaporte</option>
       </select>
+      <small>Seleccione el tipo de documento. TI y CC permiten números, Pasaporte permite letras y números.</small>
     </div>
 
-    <!-- Modifica la descripción de esta pregunta aquí -->
     <div class="form-group">
       <label for="numDocumento">N° de Documento:</label>
       <input type="text" id="numDocumento" name="numDocumento" placeholder="Escribe tu número de documento" required>
+      <small>Para TI y CC: máximo 10 dígitos numéricos. Para Pasaporte: máximo 10 caracteres alfanuméricos.</small>
     </div>
 
-    <!-- Modifica la descripción de esta pregunta aquí -->
     <div class="form-group">
       <label for="whatsapp">Whatsapp:</label>
       <input type="tel" id="whatsapp" name="whatsapp" placeholder="Escribe tu número de WhatsApp" required>
+      <small>Ingrese un número de WhatsApp de 10 dígitos numéricos.</small>
     </div>
 
-    <!-- Modifica la descripción de esta pregunta aquí -->
     <div class="form-group">
       <label for="horaContacto">Te contactamos:</label>
       <input type="time" id="horaContacto" name="horaContacto">
     </div>
 
-    <!-- Botón de envío -->
     <div class="form-group">
       <input type="submit" value="Enviar Respuesta" onclick="validarFormulario()">
     </div>
 
-    <!-- Mensaje de error -->
     <div class="error-message"></div>
 
-    <!-- Copyright -->
     <div class="copyright">
       <p>Propiedad Intelectual de: <a href="https://wa.me/573103230712" target="_blank">Oscar Polania</a></p>
     </div>
@@ -181,7 +175,6 @@
   }
 
   function enviarDatos() {
-    // Obtener los datos del formulario
     var nombre = document.getElementById('nombre').value;
     var tipoDocumento = document.getElementById('tipoDocumento').value;
     var numDocumento = document.getElementById('numDocumento').value;
@@ -196,19 +189,15 @@
       mensaje += "Te Contactamos: " + horaContacto + "\n";
     }
 
-    // Detectar si el usuario está en móvil o en computadora
     var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     var whatsappUrl = '';
 
     if (isMobile) {
-      // Si es móvil, abrir la app de WhatsApp
       whatsappUrl = 'whatsapp://send?phone=573133745646&text=' + encodeURIComponent(mensaje);
     } else {
-      // Si es computadora, abrir WhatsApp Web
       whatsappUrl = 'https://web.whatsapp.com/send?phone=573133745646&text=' + encodeURIComponent(mensaje);
     }
 
-    // Abrir el enlace correspondiente
     window.open(whatsappUrl);
   }
   </script>

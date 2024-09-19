@@ -80,23 +80,23 @@
 </head>
 <body>
   <div class="container">
-    <div class="form-title">Formulario de Pre-Inscripción</div>
+    <div class="form-title">Formulario de Contacto</div>
 
-    <!-- Video -->
-    <label for="videoUrl">URL del Video:</label>
-    <input type="text" id="videoUrl" name="videoUrl" placeholder="Inserta la URL del video" required>
-    <div class="form-group">
-      <label for="videoDescription">Descripción del Video:</label>
-      <textarea id="videoDescription" name="videoDescription" rows="3" placeholder="Descripción opcional del video"></textarea>
-    </div>
-    <!-- Previsualización del video -->
-    <iframe id="videoPreview" allowfullscreen></iframe>
+    <!-- Video preconfigurado -->
+    <!-- Modifica la URL del video aquí -->
+    <iframe id="videoPreview" allowfullscreen src="https://www.youtube.com/embed/VIDEO_ID"></iframe>
+
+    <!-- Descripción del video -->
+    <!-- Modifica la descripción del video aquí -->
+    <p>Descripción del video: Este es un video sobre ejercicios de Crossfit y técnicas de entrenamiento.</p>
 
     <!-- Inputs del usuario -->
     <div class="form-group">
       <label for="nombre">Nombre:</label>
       <input type="text" id="nombre" name="nombre" placeholder="Escribe tu nombre" required>
     </div>
+
+    <!-- Modifica la descripción de esta pregunta aquí -->
     <div class="form-group">
       <label for="tipoDocumento">Tipo de Documento:</label>
       <select id="tipoDocumento" name="tipoDocumento" required>
@@ -106,14 +106,20 @@
         <option value="Pasaporte">Pasaporte</option>
       </select>
     </div>
+
+    <!-- Modifica la descripción de esta pregunta aquí -->
     <div class="form-group">
       <label for="numDocumento">N° de Documento:</label>
       <input type="number" id="numDocumento" name="numDocumento" placeholder="Escribe tu número de documento" min="100000" max="9999999999" required>
     </div>
+
+    <!-- Modifica la descripción de esta pregunta aquí -->
     <div class="form-group">
       <label for="whatsapp">Whatsapp:</label>
       <input type="tel" id="whatsapp" name="whatsapp" placeholder="Escribe tu número de WhatsApp" required>
     </div>
+
+    <!-- Modifica la descripción de esta pregunta aquí -->
     <div class="form-group">
       <label for="horaContacto">Te contactamos:</label>
       <input type="time" id="horaContacto" name="horaContacto">
@@ -129,24 +135,6 @@
   </div>
 
   <script>
-  // Previsualización de video al ingresar el URL
-  document.getElementById('videoUrl').addEventListener('input', function() {
-    var url = this.value;
-    var iframe = document.getElementById('videoPreview');
-
-    // Validar si el URL es de YouTube o Cloudinary
-    if (url.includes('youtube.com') || url.includes('youtu.be')) {
-      // Convertir URL a formato embed si es de YouTube
-      var videoId = url.split('v=')[1] || url.split('/')[3];
-      iframe.src = 'https://www.youtube.com/watch?v=pMxWYkWH_YQ' + videoId.split('&')[0];
-    } else if (url.includes('cloudinary.com')) {
-      // Usar URL tal cual si es de Cloudinary
-      iframe.src = url;
-    } else {
-      iframe.src = '';  // Si no es un enlace válido, se vacía el iframe
-    }
-  });
-
   function validarFormulario() {
     var nombre = document.getElementById('nombre').value;
     var tipoDocumento = document.getElementById('tipoDocumento').value;

@@ -209,9 +209,9 @@
       errores.push("N° de Documento debe tener entre 6 y 10 caracteres alfanuméricos");
     }
     if (!whatsapp) {
-      errores.push("Whatsapp es obligatorio");
+      errores.push("N° Telefónico es obligatorio");
     } else if (isNaN(whatsapp) || whatsapp.length !== 10) {
-      errores.push("Whatsapp debe tener 10 dígitos numéricos");
+      errores.push("N° Telefónico debe tener 10 dígitos numéricos");
     }
 
     if (errores.length > 0) {

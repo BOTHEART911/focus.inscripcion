@@ -181,43 +181,48 @@
     previsualizarVideo();
 
     function validarFormulario() {
-      var nombre = document.getElementById('nombre');
-      var tipoDocumento = document.getElementById('tipoDocumento');
-      var numDocumento = document.getElementById('numDocumento');
-      var whatsapp = document.getElementById('whatsapp');
+    var nombre = document.getElementById('nombre');
+    var tipoDocumento = document.getElementById('tipoDocumento');
+    var numDocumento = document.getElementById('numDocumento');
+    var whatsapp = document.getElementById('whatsapp');
 
-      // Validar nombre
-      if (!nombre.value) {
+    // Validar nombre
+    if (!nombre.value) {
         nombre.setCustomValidity("Por favor, ingresa tu nombre");
-      } else {
+    } else {
         nombre.setCustomValidity(""); // Restablecer validación
-      }
-
-      // Validar tipo de documento
-      if (!tipoDocumento.value) {
-        tipoDocumento.setCustomValidity("Por favor, selecciona tu tipo de documento");
-      } else {
-        tipoDocumento.setCustomValidity("");
-      }
-
-      // Validar número de documento
-      if (!numDocumento.value) {
-        numDocumento.setCustomValidity("Por favor, ingresa tu número de documento");
-      } else if (numDocumento.value.length < 6 || numDocumento.value.length > 10) {
-        numDocumento.setCustomValidity("El número de documento debe tener entre 6 y 10 caracteres");
-      } else {
-        numDocumento.setCustomValidity("");
-      }
-
-      // Validar número de teléfono
-      if (!whatsapp.value) {
-        whatsapp.setCustomValidity("Por favor, ingresa tu número de teléfono");
-      } else if (whatsapp.value.length !== 10 || isNaN(whatsapp.value)) {
-        whatsapp.setCustomValidity("El número de teléfono debe tener 10 dígitos numéricos");
-      } else {
-        whatsapp.setCustomValidity("");
-      }
     }
+    nombre.reportValidity(); // Muestra el mensaje
+
+    // Validar tipo de documento
+    if (!tipoDocumento.value) {
+        tipoDocumento.setCustomValidity("Por favor, selecciona tu tipo de documento");
+    } else {
+        tipoDocumento.setCustomValidity("");
+    }
+    tipoDocumento.reportValidity(); // Muestra el mensaje
+
+    // Validar número de documento
+    if (!numDocumento.value) {
+        numDocumento.setCustomValidity("Por favor, ingresa tu número de documento");
+    } else if (numDocumento.value.length < 6 || numDocumento.value.length > 10) {
+        numDocumento.setCustomValidity("El número de documento debe tener entre 6 y 10 caracteres");
+    } else {
+        numDocumento.setCustomValidity("");
+    }
+    numDocumento.reportValidity(); // Muestra el mensaje
+
+    // Validar número de teléfono
+    if (!whatsapp.value) {
+        whatsapp.setCustomValidity("Por favor, ingresa tu número de teléfono");
+    } else if (whatsapp.value.length !== 10 || isNaN(whatsapp.value)) {
+        whatsapp.setCustomValidity("El número de teléfono debe tener 10 dígitos numéricos");
+    } else {
+        whatsapp.setCustomValidity("");
+    }
+    whatsapp.reportValidity(); // Muestra el mensaje
+}
+
 
     // Aquí colocas la función validarMaximo
     function validarMaximo(input) {

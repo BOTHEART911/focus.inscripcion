@@ -94,9 +94,11 @@
     .copyright a:hover {
       text-decoration: underline;
     }
+    /* Agregar la regla aquí para cambiar el color de <small> */
     small {
       color: #00f; /* Cambia este valor por el color que prefieras */
     }
+    /* Clase global para cambiar el color de los textos */
     .text-color {
       color: #fff; /* Cambia el color aquí */
     }
@@ -118,7 +120,6 @@
     <div class="form-group">
       <label for="nombre">Nombre:</label>
       <input type="text" id="nombre" name="nombre" placeholder="Escribe tu nombre" required>
-      <div class="error-message" id="error-nombre"></div> <!-- Mensaje de error -->
     </div>
 
     <div class="form-group">
@@ -129,21 +130,18 @@
         <option value="CC">CC</option>
         <option value="Pasaporte">Pasaporte</option>
       </select>
-      <div class="error-message" id="error-tipoDocumento"></div> <!-- Mensaje de error -->
     </div>
 
     <div class="form-group">
-      <label for="numDocumento">N° de Documento:</label>
-      <input type="number" id="numDocumento" name="numDocumento" placeholder="Escribe tu número de documento" maxlength="10" required oninput="validarMaximo(this)">
-      <small>Sin puntos ni espacios</small>
-      <div class="error-message" id="error-numDocumento"></div> <!-- Mensaje de error -->
-    </div>
+  <label for="numDocumento">N° de Documento:</label>
+  <input type="number" id="numDocumento" name="numDocumento" placeholder="Escribe tu número de documento" maxlength="10" required oninput="validarMaximo(this)">
+  <small>Sin puntos ni espacios</small>
+</div>
 
     <div class="form-group">
-      <label for="whatsapp">N° Telefónico:</label>
-      <input type="tel" id="whatsapp" name="whatsapp" placeholder="Escribe tu número Telefónico" maxlength="10" required oninput="validarMaximo(this)">
-      <div class="error-message" id="error-whatsapp"></div> <!-- Mensaje de error -->
-    </div>
+  <label for="whatsapp">N° Telefónico:</label>
+  <input type="tel" id="whatsapp" name="whatsapp" placeholder="Escribe tu número Telefónico" maxlength="10" required oninput="validarMaximo(this)">
+</div>
 
     <div class="form-group">
       <label for="horaContacto">Te contactamos:</label>
@@ -154,6 +152,8 @@
     <div class="form-group">
       <input type="submit" value="Enviar Respuesta" onclick="validarFormulario()">
     </div>
+
+    <div class="error-message"></div>
 
     <div class="copyright">
       <p>Copyright © <a href="https://wa.me/573103230712" target="_blank">Oscar Polania</a></p>
@@ -181,7 +181,7 @@
       const videoId = obtenerIdVideo(url);
       if (videoId) {
         const iframe = document.getElementById('videoPreview');
-        iframe.src = `https://www.youtube.com/embed/${videoId}`;
+        iframe.src = https://www.youtube.com/embed/${videoId};
       }
     }
 
@@ -193,56 +193,74 @@
       var numDocumento = document.getElementById('numDocumento').value;
       var whatsapp = document.getElementById('whatsapp').value;
 
-      // Limpiar mensajes de error previos
-      document.getElementById('error-nombre').innerHTML = '';
-      document.getElementById('error-tipoDocumento').innerHTML = '';
-      document.getElementById('error-numDocumento').innerHTML = '';
-      document.getElementById('error-whatsapp').innerHTML = '';
-
       var errores = [];
 
       if (!nombre) {
         errores.push("Nombre es obligatorio");
-        document.getElementById('error-nombre').innerHTML = "Nombre es obligatorio"; // Mensaje de error
       }
       if (!tipoDocumento) {
         errores.push("Tipo de Documento es obligatorio");
-        document.getElementById('error-tipoDocumento').innerHTML = "Tipo de Documento es obligatorio"; // Mensaje de error
       }
       if (!numDocumento) {
         errores.push("N° de Documento es obligatorio");
-        document.getElementById('error-numDocumento').innerHTML = "N° de Documento es obligatorio"; // Mensaje de error
       } else if (numDocumento.length < 6 || numDocumento.length > 10) {
         errores.push("N° de Documento debe tener entre 6 y 10 caracteres alfanuméricos");
-        document.getElementById('error-numDocumento').innerHTML = "N° de Documento debe tener entre 6 y 10 caracteres alfanuméricos"; // Mensaje de error
       }
       if (!whatsapp) {
         errores.push("N° Telefónico es obligatorio");
-        document.getElementById('error-whatsapp').innerHTML = "N° Telefónico es obligatorio"; // Mensaje de error
-      } else if (whatsapp.length < 10) {
-        errores.push("N° Telefónico debe tener 10 caracteres");
-        document.getElementById('error-whatsapp').innerHTML = "N° Telefónico debe tener 10 caracteres"; // Mensaje de error
+      } else if (isNaN(whatsapp) || whatsapp.length !== 10) {
+        errores.push("N° Telefónico debe tener 10 dígitos numéricos");
       }
 
       if (errores.length > 0) {
-        return false; // Prevenir el envío si hay errores
+        var mensajeError = errores.join("<br>");
+        document.querySelector('.error-message').innerHTML = mensajeError;
+      } else {
+        enviarDatos();
       }
-
-      // Preparar el mensaje para WhatsApp
-      const mensaje = `Nombre: ${nombre}\nTipo de Documento: ${tipoDocumento}\nN° de Documento: ${numDocumento}\nN° Telefónico: ${whatsapp}`;
-      const urlWhatsApp = `https://api.whatsapp.com/send?text=${encodeURIComponent(mensaje)}`;
-      window.open(urlWhatsApp, '_blank'); // Abrir WhatsApp
-
-      // Limpiar los campos después del envío
-      document.getElementById('nombre').value = '';
-      document.getElementById('tipoDocumento').value = '';
-      document.getElementById('numDocumento').value = '';
-      document.getElementById('whatsapp').value = '';
     }
 
+    function enviarDatos() {
+      var nombre = document.getElementById('nombre').value;
+      var tipoDocumento = document.getElementById('tipoDocumento').value;
+      var numDocumento = document.getElementById('numDocumento').value;
+      var whatsapp = document.getElementById('whatsapp').value;
+      var horaContacto = document.getElementById('horaContacto').value;
+
+      // Convertir la hora de 24 horas a 12 horas con AM/PM
+      if (horaContacto) {
+        let hora = parseInt(horaContacto.split(':')[0], 10);
+        let minutos = horaContacto.split(':')[1];
+        let periodo = hora >= 12 ? 'PM' : 'AM';
+        hora = hora % 12 || 12; // Convertir a formato de 12 horas
+        horaContacto = ${hora}:${minutos} ${periodo};
+      }
+
+      var mensaje = "*PREINSCRIPCIÓN*\n\n";
+      mensaje += "*Nombre:* " + nombre + "\n";
+      mensaje += "*Tipo de Documento:* " + tipoDocumento + "\n";
+      mensaje += "*N° de Documento:* " + numDocumento + "\n";
+      mensaje += "*N° Telefónico:* " + whatsapp + "\n";
+      if (horaContacto) {
+        mensaje += "*Te Contactamos:* " + horaContacto + "\n";
+      }
+
+      var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+      var whatsappUrl = '';
+
+      if (isMobile) {
+        whatsappUrl = 'whatsapp://send?phone=573133745646&text=' + encodeURIComponent(mensaje);
+      } else {
+        whatsappUrl = 'https://web.whatsapp.com/send?phone=573133745646&text=' + encodeURIComponent(mensaje);
+      }
+
+      window.open(whatsappUrl);
+    }
+
+    // Aquí colocas la función validarMaximo
     function validarMaximo(input) {
-      if (input.value.length > input.maxLength) {
-        input.value = input.value.slice(0, input.maxLength);
+      if (input.value.length > 10) {
+        input.value = input.value.slice(0, 10); // Limita a 10 caracteres
       }
     }
   </script>

@@ -181,7 +181,7 @@
       const videoId = obtenerIdVideo(url);
       if (videoId) {
         const iframe = document.getElementById('videoPreview');
-        iframe.src = https://www.youtube.com/embed/${videoId};
+        iframe.src = `https://www.youtube.com/embed/${videoId}`;
       }
     }
 
@@ -233,7 +233,7 @@
         let minutos = horaContacto.split(':')[1];
         let periodo = hora >= 12 ? 'PM' : 'AM';
         hora = hora % 12 || 12; // Convertir a formato de 12 horas
-        horaContacto = ${hora}:${minutos} ${periodo};
+        horaContacto = `${hora}:${minutos} ${periodo}`;
       }
 
       var mensaje = "*PREINSCRIPCIÓN*\n\n";

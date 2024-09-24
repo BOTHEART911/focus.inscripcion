@@ -94,11 +94,9 @@
     .copyright a:hover {
       text-decoration: underline;
     }
-    /* Agregar la regla aquí para cambiar el color de <small> */
     small {
       color: #00f; /* Cambia este valor por el color que prefieras */
     }
-    /* Clase global para cambiar el color de los textos */
     .text-color {
       color: #fff; /* Cambia el color aquí */
     }
@@ -108,15 +106,12 @@
   <div class="container text-color"> <!-- Aplicar la clase aquí -->
     <div class="form-title">Pre-Inscripción FOCUS</div>
 
-    <!-- Contenedor del video -->
     <div class="video-container">
       <iframe id="videoPreview" allowfullscreen></iframe>
     </div>
 
-    <!-- Descripción del video -->
     <p>Estás a unos clics de pertenecer a FOCUS</p>
 
-    <!-- Inputs del usuario -->
     <div class="form-group">
       <label for="nombre">Nombre:</label>
       <input type="text" id="nombre" name="nombre" placeholder="Escribe tu nombre" required>
@@ -133,15 +128,15 @@
     </div>
 
     <div class="form-group">
-  <label for="numDocumento">N° de Documento:</label>
-  <input type="number" id="numDocumento" name="numDocumento" placeholder="Escribe tu número de documento" maxlength="10" required oninput="validarMaximo(this)">
-  <small>Sin puntos ni espacios</small>
-</div>
+      <label for="numDocumento">N° de Documento:</label>
+      <input type="number" id="numDocumento" name="numDocumento" placeholder="Escribe tu número de documento" maxlength="10" required oninput="validarMaximo(this)">
+      <small>Sin puntos ni espacios</small>
+    </div>
 
     <div class="form-group">
-  <label for="whatsapp">N° Telefónico:</label>
-  <input type="tel" id="whatsapp" name="whatsapp" placeholder="Escribe tu número Telefónico" maxlength="10" required oninput="validarMaximo(this)">
-</div>
+      <label for="whatsapp">N° Telefónico:</label>
+      <input type="tel" id="whatsapp" name="whatsapp" placeholder="Escribe tu número Telefónico" maxlength="10" required oninput="validarMaximo(this)">
+    </div>
 
     <div class="form-group">
       <label for="horaContacto">Te contactamos:</label>
@@ -153,15 +148,13 @@
       <input type="submit" value="Enviar Respuesta" onclick="validarFormulario()">
     </div>
 
-    <div class="error-message"></div>
-
     <div class="copyright">
       <p>Copyright © <a href="https://wa.me/573103230712" target="_blank">Oscar Polania</a></p>
     </div>
   </div>
 
   <script>
-    // Función para obtener el ID del video ya sea en formato estándar o short
+    // Función para obtener el ID del video
     function obtenerIdVideo(url) {
       let videoId = null;
       if (url.includes('youtu.be')) {
@@ -177,7 +170,7 @@
 
     // Previsualizar video basado en URL
     function previsualizarVideo() {
-      const url = "https://youtu.be/lmDfmilZ4Xo?si=bw78mXqkivgHQpRx"; // Cambia la URL si lo deseas
+      const url = "https://youtu.be/lmDfmilZ4Xo?si=bw78mXqkivgHQpRx"; 
       const videoId = obtenerIdVideo(url);
       if (videoId) {
         const iframe = document.getElementById('videoPreview');
@@ -188,73 +181,42 @@
     previsualizarVideo();
 
     function validarFormulario() {
-      var nombre = document.getElementById('nombre').value;
-      var tipoDocumento = document.getElementById('tipoDocumento').value;
-      var numDocumento = document.getElementById('numDocumento').value;
-      var whatsapp = document.getElementById('whatsapp').value;
+      var nombre = document.getElementById('nombre');
+      var tipoDocumento = document.getElementById('tipoDocumento');
+      var numDocumento = document.getElementById('numDocumento');
+      var whatsapp = document.getElementById('whatsapp');
 
-      var errores = [];
-
-      if (!nombre) {
-        errores.push("Nombre es obligatorio");
-      }
-      if (!tipoDocumento) {
-        errores.push("Tipo de Documento es obligatorio");
-      }
-      if (!numDocumento) {
-        errores.push("N° de Documento es obligatorio");
-      } else if (numDocumento.length < 6 || numDocumento.length > 10) {
-        errores.push("N° de Documento debe tener entre 6 y 10 caracteres alfanuméricos");
-      }
-      if (!whatsapp) {
-        errores.push("N° Telefónico es obligatorio");
-      } else if (isNaN(whatsapp) || whatsapp.length !== 10) {
-        errores.push("N° Telefónico debe tener 10 dígitos numéricos");
-      }
-
-      if (errores.length > 0) {
-        var mensajeError = errores.join("<br>");
-        document.querySelector('.error-message').innerHTML = mensajeError;
+      // Validar nombre
+      if (!nombre.value) {
+        nombre.setCustomValidity("Por favor, ingresa tu nombre");
       } else {
-        enviarDatos();
-      }
-    }
-
-    function enviarDatos() {
-      var nombre = document.getElementById('nombre').value;
-      var tipoDocumento = document.getElementById('tipoDocumento').value;
-      var numDocumento = document.getElementById('numDocumento').value;
-      var whatsapp = document.getElementById('whatsapp').value;
-      var horaContacto = document.getElementById('horaContacto').value;
-
-      // Convertir la hora de 24 horas a 12 horas con AM/PM
-      if (horaContacto) {
-        let hora = parseInt(horaContacto.split(':')[0], 10);
-        let minutos = horaContacto.split(':')[1];
-        let periodo = hora >= 12 ? 'PM' : 'AM';
-        hora = hora % 12 || 12; // Convertir a formato de 12 horas
-        horaContacto = `${hora}:${minutos} ${periodo}`;
+        nombre.setCustomValidity(""); // Restablecer validación
       }
 
-      var mensaje = "*PREINSCRIPCIÓN*\n\n";
-      mensaje += "*Nombre:* " + nombre + "\n";
-      mensaje += "*Tipo de Documento:* " + tipoDocumento + "\n";
-      mensaje += "*N° de Documento:* " + numDocumento + "\n";
-      mensaje += "*N° Telefónico:* " + whatsapp + "\n";
-      if (horaContacto) {
-        mensaje += "*Te Contactamos:* " + horaContacto + "\n";
-      }
-
-      var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-      var whatsappUrl = '';
-
-      if (isMobile) {
-        whatsappUrl = 'whatsapp://send?phone=573133745646&text=' + encodeURIComponent(mensaje);
+      // Validar tipo de documento
+      if (!tipoDocumento.value) {
+        tipoDocumento.setCustomValidity("Por favor, selecciona tu tipo de documento");
       } else {
-        whatsappUrl = 'https://web.whatsapp.com/send?phone=573133745646&text=' + encodeURIComponent(mensaje);
+        tipoDocumento.setCustomValidity("");
       }
 
-      window.open(whatsappUrl);
+      // Validar número de documento
+      if (!numDocumento.value) {
+        numDocumento.setCustomValidity("Por favor, ingresa tu número de documento");
+      } else if (numDocumento.value.length < 6 || numDocumento.value.length > 10) {
+        numDocumento.setCustomValidity("El número de documento debe tener entre 6 y 10 caracteres");
+      } else {
+        numDocumento.setCustomValidity("");
+      }
+
+      // Validar número de teléfono
+      if (!whatsapp.value) {
+        whatsapp.setCustomValidity("Por favor, ingresa tu número de teléfono");
+      } else if (whatsapp.value.length !== 10 || isNaN(whatsapp.value)) {
+        whatsapp.setCustomValidity("El número de teléfono debe tener 10 dígitos numéricos");
+      } else {
+        whatsapp.setCustomValidity("");
+      }
     }
 
     // Aquí colocas la función validarMaximo

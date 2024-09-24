@@ -106,15 +106,19 @@
   <div class="container text-color"> <!-- Aplicar la clase aquí -->
     <div class="form-title">Pre-Inscripción FOCUS</div>
 
+    <!-- Contenedor del video -->
     <div class="video-container">
       <iframe id="videoPreview" allowfullscreen></iframe>
     </div>
 
+    <!-- Descripción del video -->
     <p>Estás a unos clics de pertenecer a FOCUS</p>
 
+    <!-- Inputs del usuario -->
     <div class="form-group">
       <label for="nombre">Nombre:</label>
       <input type="text" id="nombre" name="nombre" placeholder="Escribe tu nombre" required>
+      <div class="error-message" id="error-nombre"></div> <!-- Mensaje de error -->
     </div>
 
     <div class="form-group">
@@ -125,17 +129,20 @@
         <option value="CC">CC</option>
         <option value="Pasaporte">Pasaporte</option>
       </select>
+      <div class="error-message" id="error-tipoDocumento"></div> <!-- Mensaje de error -->
     </div>
 
     <div class="form-group">
       <label for="numDocumento">N° de Documento:</label>
       <input type="number" id="numDocumento" name="numDocumento" placeholder="Escribe tu número de documento" maxlength="10" required oninput="validarMaximo(this)">
       <small>Sin puntos ni espacios</small>
+      <div class="error-message" id="error-numDocumento"></div> <!-- Mensaje de error -->
     </div>
 
     <div class="form-group">
       <label for="whatsapp">N° Telefónico:</label>
       <input type="tel" id="whatsapp" name="whatsapp" placeholder="Escribe tu número Telefónico" maxlength="10" required oninput="validarMaximo(this)">
+      <div class="error-message" id="error-whatsapp"></div> <!-- Mensaje de error -->
     </div>
 
     <div class="form-group">
@@ -154,7 +161,7 @@
   </div>
 
   <script>
-    // Función para obtener el ID del video
+    // Función para obtener el ID del video ya sea en formato estándar o short
     function obtenerIdVideo(url) {
       let videoId = null;
       if (url.includes('youtu.be')) {
@@ -170,7 +177,7 @@
 
     // Previsualizar video basado en URL
     function previsualizarVideo() {
-      const url = "https://youtu.be/lmDfmilZ4Xo?si=bw78mXqkivgHQpRx"; 
+      const url = "https://youtu.be/lmDfmilZ4Xo?si=bw78mXqkivgHQpRx"; // Cambia la URL si lo deseas
       const videoId = obtenerIdVideo(url);
       if (videoId) {
         const iframe = document.getElementById('videoPreview');
@@ -181,68 +188,61 @@
     previsualizarVideo();
 
     function validarFormulario() {
-    var nombre = document.getElementById('nombre').value;
-    var tipoDocumento = document.getElementById('tipoDocumento').value;
-    var numDocumento = document.getElementById('numDocumento').value;
-    var whatsapp = document.getElementById('whatsapp').value;
+      var nombre = document.getElementById('nombre').value;
+      var tipoDocumento = document.getElementById('tipoDocumento').value;
+      var numDocumento = document.getElementById('numDocumento').value;
+      var whatsapp = document.getElementById('whatsapp').value;
 
-    // Variable de control
-    var formularioValido = true;
+      // Limpiar mensajes de error previos
+      document.getElementById('error-nombre').innerHTML = '';
+      document.getElementById('error-tipoDocumento').innerHTML = '';
+      document.getElementById('error-numDocumento').innerHTML = '';
+      document.getElementById('error-whatsapp').innerHTML = '';
 
-    // Validar nombre
-    if (!nombre) {
-        alert("Por favor, ingresa tu nombre");
-        formularioValido = false;
+      var errores = [];
+
+      if (!nombre) {
+        errores.push("Nombre es obligatorio");
+        document.getElementById('error-nombre').innerHTML = "Nombre es obligatorio"; // Mensaje de error
+      }
+      if (!tipoDocumento) {
+        errores.push("Tipo de Documento es obligatorio");
+        document.getElementById('error-tipoDocumento').innerHTML = "Tipo de Documento es obligatorio"; // Mensaje de error
+      }
+      if (!numDocumento) {
+        errores.push("N° de Documento es obligatorio");
+        document.getElementById('error-numDocumento').innerHTML = "N° de Documento es obligatorio"; // Mensaje de error
+      } else if (numDocumento.length < 6 || numDocumento.length > 10) {
+        errores.push("N° de Documento debe tener entre 6 y 10 caracteres alfanuméricos");
+        document.getElementById('error-numDocumento').innerHTML = "N° de Documento debe tener entre 6 y 10 caracteres alfanuméricos"; // Mensaje de error
+      }
+      if (!whatsapp) {
+        errores.push("N° Telefónico es obligatorio");
+        document.getElementById('error-whatsapp').innerHTML = "N° Telefónico es obligatorio"; // Mensaje de error
+      } else if (whatsapp.length < 10) {
+        errores.push("N° Telefónico debe tener 10 caracteres");
+        document.getElementById('error-whatsapp').innerHTML = "N° Telefónico debe tener 10 caracteres"; // Mensaje de error
+      }
+
+      if (errores.length > 0) {
+        return false; // Prevenir el envío si hay errores
+      }
+
+      // Preparar el mensaje para WhatsApp
+      const mensaje = `Nombre: ${nombre}\nTipo de Documento: ${tipoDocumento}\nN° de Documento: ${numDocumento}\nN° Telefónico: ${whatsapp}`;
+      const urlWhatsApp = `https://api.whatsapp.com/send?text=${encodeURIComponent(mensaje)}`;
+      window.open(urlWhatsApp, '_blank'); // Abrir WhatsApp
+
+      // Limpiar los campos después del envío
+      document.getElementById('nombre').value = '';
+      document.getElementById('tipoDocumento').value = '';
+      document.getElementById('numDocumento').value = '';
+      document.getElementById('whatsapp').value = '';
     }
 
-    // Validar tipo de documento
-    if (!tipoDocumento) {
-        alert("Por favor, selecciona tu tipo de documento");
-        formularioValido = false;
-    }
-
-    // Validar número de documento
-    if (!numDocumento) {
-        alert("Por favor, ingresa tu número de documento");
-        formularioValido = false;
-    } else if (numDocumento.length < 6 || numDocumento.length > 10) {
-        alert("El número de documento debe tener entre 6 y 10 caracteres");
-        formularioValido = false;
-    }
-
-    // Validar número de teléfono
-    if (!whatsapp) {
-        alert("Por favor, ingresa tu número de teléfono");
-        formularioValido = false;
-    } else if (whatsapp.length !== 10 || isNaN(whatsapp)) {
-        alert("El número de teléfono debe tener 10 dígitos numéricos");
-        formularioValido = false;
-    }
-
-    // Si todo es válido, continuar con el envío a WhatsApp
-    if (formularioValido) {
-        enviarDatosAWhatsApp();
-    }
-}
-
-function enviarDatosAWhatsApp() {
-    var nombre = document.getElementById('nombre').value;
-    var tipoDocumento = document.getElementById('tipoDocumento').value;
-    var numDocumento = document.getElementById('numDocumento').value;
-    var whatsapp = document.getElementById('whatsapp').value;
-    var mensaje = 'Nombre: ' + nombre + '%0A' + 
-                  'Tipo de Documento: ' + tipoDocumento + '%0A' + 
-                  'Número de Documento: ' + numDocumento + '%0A' + 
-                  'WhatsApp: ' + whatsapp;
-
-    var url = 'https://api.whatsapp.com/send?phone=573103230712&text=' + mensaje;
-    window.open(url);
-}
-
-    // Aquí colocas la función validarMaximo
     function validarMaximo(input) {
-      if (input.value.length > 10) {
-        input.value = input.value.slice(0, 10); // Limita a 10 caracteres
+      if (input.value.length > input.maxLength) {
+        input.value = input.value.slice(0, input.maxLength);
       }
     }
   </script>

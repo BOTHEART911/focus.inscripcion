@@ -5,20 +5,119 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Formulario de Contacto</title>
   <style>
-    /* Tu CSS existente */
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-image: url('https://res.cloudinary.com/dmnvbmul2/image/upload/v1726760493/FOCUS_Slide_rqvdhe.png'); /* Imagen de fondo */
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: rgba(0, 0, 0, 0.7); /* Fondo transparente */
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px 2px #00f; /* Mantener el sombreado azul */
+    }
+    .form-title {
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-group label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #fff; /* Aquí puedes cambiar el color de las descripciones */
+    }
+    .form-group input[type="text"],
+    .form-group input[type="number"],
+    .form-group select,
+    .form-group input[type="tel"],
+    .form-group input[type="time"],
+    .form-group textarea {
+      width: 100%;
+      padding: 8px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .form-group input[type="submit"] {
+      background-color: #00f;
+      color: #fff;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+    }
+    .form-group input[type="submit"]:hover {
+      background-color: #005;
+    }
+    .error-message {
+      color: red;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+    .video-container {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+      height: 0;
+      overflow: hidden;
+      background: #000;
+      margin-top: 20px;
+    }
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .copyright {
+      text-align: center;
+      margin-top: 20px;
+      color: #fff;
+    }
+    .copyright a {
+      color: #00f;
+      text-decoration: none;
+    }
+    .copyright a:hover {
+      text-decoration: underline;
+    }
+    /* Agregar la regla aquí para cambiar el color de <small> */
+    small {
+      color: #00f; /* Cambia este valor por el color que prefieras */
+    }
+    /* Clase global para cambiar el color de los textos */
+    .text-color {
+      color: #fff; /* Cambia el color aquí */
+    }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
-  <div class="container text-color">
+  <div class="container text-color"> <!-- Aplicar la clase aquí -->
     <div class="form-title">Pre-Inscripción FOCUS</div>
 
+    <!-- Contenedor del video -->
     <div class="video-container">
       <iframe id="videoPreview" allowfullscreen></iframe>
     </div>
 
+    <!-- Descripción del video -->
     <p>Estás a unos clics de pertenecer a FOCUS</p>
 
+    <!-- Inputs del usuario -->
     <div class="form-group">
       <label for="nombre">Nombre:</label>
       <input type="text" id="nombre" name="nombre" placeholder="Escribe tu nombre" required>
